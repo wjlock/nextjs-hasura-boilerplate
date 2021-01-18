@@ -11,7 +11,9 @@ const createHttpLink = (token: string) => {
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/v1/graphql",
     credentials: "include",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: token
+      ? { Authorization: `Bearer ${token}` }
+      : { "X-Hasura-Role": `anonymous` },
     fetch,
   });
   return httpLink;
@@ -26,7 +28,9 @@ const createWSLink = (token: string) => {
         reconnect: true,
         connectionParams: async () => {
           return {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: token
+              ? { Authorization: `Bearer ${token}` }
+              : { "X-Hasura-Role": `anonymous` },
           };
         },
       },

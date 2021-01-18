@@ -9,6 +9,10 @@ COPY ./metadata /hasura-metadata
 # Enable the console
 ENV HASURA_GRAPHQL_ENABLE_CONSOLE=true
 
+# Enable unauthenticated role
+ENV HASURA_GRAPHQL_UNAUTHORIZED_ROLE=HASURA_GRAPHQL_UNAUTHORIZED_ROLE
+
+
 # Heroku hobby tier PG has few limitations including 20 max connections
 # https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier
 ENV HASURA_GRAPHQL_PG_CONNECTIONS=15
